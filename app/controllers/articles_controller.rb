@@ -16,6 +16,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.author_email = current_user.email
     @article.save
 
     flash.notice = "Article '#{@article.title}' Created!"
@@ -44,4 +45,18 @@ class ArticlesController < ApplicationController
 
     redirect_to article_path(@article)
   end
+
+  before_filter :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :current_user_rights?, only: [:edit, :update, :destroy]
+
+  def current_user_rights?
+    @article = Article.find(params[:id])
+    unless @article.author_email == current_user.email
+      flash.notice = "You are not the owner of this article!"
+      redirect_to article_path(@article)
+      return false
+    end
+  end
+
+
 end
