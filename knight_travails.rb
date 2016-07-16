@@ -52,7 +52,8 @@ class KnightPathFinder
   end
 
   def new_move_positions(pos)
-    result = KnightPathFinder.valid_moves(pos).reject {|move| @vistied_positions.include?(move)}
+    moves =  KnightPathFinder.valid_moves(pos)
+    result = moves.reject { |move| @vistied_positions.include?(move) }
     @vistied_positions += result
     result
   end
