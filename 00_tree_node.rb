@@ -58,6 +58,7 @@ class PolyTreeNode
   end
 
   def inspect
-    {:value => @value, :parent => parent, :children => children.count }.inspect
+    {:value => @value, :parent => parent,
+      :children => children.count }.inspect
   end
 end

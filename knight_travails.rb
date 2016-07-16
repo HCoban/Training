@@ -1,4 +1,5 @@
-require_relative "./lib/00_tree_node.rb"
+require 'byebug'
+require_relative "00_tree_node.rb"
 
 class KnightPathFinder
   attr_reader :start_pos, :start
@@ -12,12 +13,12 @@ class KnightPathFinder
   def find_path(end_pos)
     build_move_tree
     end_node = @start.bfs(end_pos)
-    (trace_path_back(end_node).map(&:value) << @start_pos).reverse
+    (trace_path_back(end_node).map(&:value)).reverse
   end
 
   def trace_path_back(end_node)
     path = [end_node]
-    if end_node
+    until end_node.parent.nil?
       path << end_node.parent
       end_node = path[-1]
     end
@@ -55,9 +56,9 @@ class KnightPathFinder
     @vistied_positions += result
     result
   end
+end
 
-
-
-
-
+if __FILE__ == $PROGRAM_NAME
+  first = KnightPathFinder.new([0,0])
+  p first.find_path([6, 2])
 end
