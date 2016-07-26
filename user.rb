@@ -12,6 +12,28 @@ class User
     @lname = options['lname']
   end
 
+  def save
+    if @id
+      QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
+        UPDATE
+          users
+        SET
+          fname = ?, lname = ?
+        WHERE
+          id = ?
+      SQL
+
+    else
+      QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
+        INSERT INTO
+          users (fname, lname)
+        VALUES
+          (?, ?)
+      SQL
+      @id = QuestionsDatabase.instance.last_insert_row_id
+    end
+  end
+
   def self.find_by_id(id)
     user = QuestionsDatabase.instance.execute(<<-SQL, id)
     SELECT
@@ -59,17 +81,12 @@ class User
   def average_karma
     average = QuestionsDatabase.instance.execute(<<-SQL, @id)
     SELECT
-      CASE
-        WHEN COUNT(DISTINCT(q.id) THEN 0 AS av
-        ELSE (COUNT(ql.id) / COUNT(DISTINCT(q.id))) AS av
-      END
+      ROUND((CAST(COUNT(ql.id) AS FLOAT) / COUNT(DISTINCT(q.id))), 2) AS av
     FROM
       questions AS q
       LEFT OUTER JOIN question_likes as ql ON q.id = ql.question_id
     WHERE
-      q.author_id = ?
-    GROUP BY
-      ql.id, q.id
+      q.author_id = ? AND q.id
     SQL
 
     return average.first['av']

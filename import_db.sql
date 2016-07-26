@@ -58,13 +58,16 @@ INSERT INTO
   users (fname, lname)
 VALUES
   ('Albert', 'Einstein'),
-  ('William', 'Shakespeare');
+  ('William', 'Shakespeare'),
+  ('Michael', 'Jackson');
 
 INSERT INTO
   questions (title, body, author_id)
 VALUES
   ('SQL help', "What is a three way outer join?", 1),
-  ('Active Record', "Why don't we just use Active Record instead?", 2);
+  ('Active Record', "Why don't we just use Active Record instead?", 2),
+  ('Rails', 'How to handle migration error?', 1),
+  ('Ruby', 'Do we really need to know algorithms?', 1);
 
 INSERT INTO
   question_follows (user_id, question_id)
@@ -83,4 +86,7 @@ INSERT INTO
   question_likes (user_id, question_id)
 VALUES
   (2, 1),
-  (1, 2);
+  (1, 2),
+  (1, 3),
+  (2, 3),
+  (3, 3);

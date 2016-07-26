@@ -13,6 +13,27 @@ class Question
     @author_id = options['author_id']
   end
 
+  def save
+    if @id
+      QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id, @id)
+        UPDATE
+          questions
+        SET
+          title = ?, body = ?, author_id = ?
+        WHERE
+          id = ?
+      SQL
+    else
+      QuestionsDatabase.instance.execute(<<-SQL, @title, @body, @author_id)
+        INSERT INTO
+          questions (title, body, author_id)
+        VALUES
+          (?, ?, ?)
+      SQL
+      @id = QuestionsDatabase.instance.last_insert_row_id
+    end
+  end
+
   def self.find_by_id(id)
     question = QuestionsDatabase.instance.execute(<<-SQL, id)
     SELECT
