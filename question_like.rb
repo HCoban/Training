@@ -1,9 +1,8 @@
-class QuestionLike
+class QuestionLike < QuestionsDBMB
   attr_accessor :id, :user_id, :question_id
 
   def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM question_likes")
-    data.map { |datum| QuestionLike.new(datum) }
+    super('question_likes')
   end
 
   def initialize(options)
@@ -13,18 +12,7 @@ class QuestionLike
   end
 
   def self.find_by_id(id)
-    like = QuestionsDatabase.instance.execute(<<-SQL, id)
-    SELECT
-      *
-    FROM
-      question_likes
-    WHERE
-      id = ?
-    SQL
-
-    return nil if like.empty?
-
-    QuestionLike.new(like.first)
+    super(id, 'question_likes')
   end
 
   def self.likers_for_question_id(question_id)

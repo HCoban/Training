@@ -1,9 +1,9 @@
-class QuestionFollow
+class QuestionFollow < QuestionsDBMB
+
   attr_accessor :id, :user_id, :question_id
 
   def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM question_follows")
-    data.map { |datum| QuestionFollow.new(datum) }
+    super('question_follows')
   end
 
   def initialize(options)
@@ -13,18 +13,7 @@ class QuestionFollow
   end
 
   def self.find_by_id(id)
-    follow = QuestionsDatabase.instance.execute(<<-SQL, id)
-    SELECT
-      *
-    FROM
-      question_follows
-    WHERE
-      id = ?
-    SQL
-
-    return nil if follow.empty?
-
-    QuestionFollow.new(follow.first)
+    super(id, 'question_follows')
   end
 
   def self.followers_for_question_id(question_id)

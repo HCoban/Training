@@ -1,5 +1,6 @@
 require 'sqlite3'
 require 'singleton'
+require_relative 'questions_db_mb'
 require_relative 'user'
 require_relative 'question'
 require_relative 'reply'

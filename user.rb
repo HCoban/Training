@@ -1,9 +1,8 @@
-class User
+class User < QuestionsDBMB
   attr_accessor :id, :fname, :lname
 
   def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM users")
-    data.map { |datum| User.new(datum) }
+    super('users')
   end
 
   def initialize(options)
@@ -35,17 +34,7 @@ class User
   end
 
   def self.find_by_id(id)
-    user = QuestionsDatabase.instance.execute(<<-SQL, id)
-    SELECT
-      *
-    FROM
-      users
-    WHERE
-      id = ?
-    SQL
-    return nil if user.empty?
-
-    User.new(user.first)
+    super(id, 'users')
   end
 
   def self.find_by_name(fname, lname)

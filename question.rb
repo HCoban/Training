@@ -1,9 +1,8 @@
-class Question
+class Question < QuestionsDBMB
   attr_accessor :id, :title, :body, :author_id
 
   def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM questions")
-    data.map { |datum| Question.new(datum) }
+    super('questions')
   end
 
   def initialize(options)
@@ -35,18 +34,7 @@ class Question
   end
 
   def self.find_by_id(id)
-    question = QuestionsDatabase.instance.execute(<<-SQL, id)
-    SELECT
-      *
-    FROM
-      questions
-    WHERE
-      id = ?
-    SQL
-
-    return nil if question.empty?
-
-    Question.new(question.first)
+    super(id, 'questions')
   end
 
   def self.find_by_author_id(author_id)

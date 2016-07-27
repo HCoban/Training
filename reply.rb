@@ -1,9 +1,8 @@
-class Reply
+class Reply < QuestionsDBMB
   attr_accessor :id, :question_id, :parent_id, :user_id, :body
 
   def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM replies")
-    data.map { |datum| Reply.new(datum) }
+    super('replies')
   end
 
   def initialize(options)
@@ -36,18 +35,7 @@ class Reply
   end
 
   def self.find_by_id(id)
-    reply = QuestionsDatabase.instance.execute(<<-SQL, id)
-    SELECT
-      *
-    FROM
-      replies
-    WHERE
-      id = ?
-    SQL
-
-    return nil if reply.empty?
-
-    Reply.new(reply.first)
+    super(id, 'replies')
   end
 
   def self.find_by_user_id(user_id)
