@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      login_user(@user)
+      login_user!(@user)
       render :show
     else
       flash.now[:errors] = []

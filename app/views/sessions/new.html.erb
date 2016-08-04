@@ -1,1 +1,8 @@
-LOGIN
+WELCOME TO LOGIN PAGE
+
+<form action= <%= session_url %> method="post">
+  <%= input_auth_token %>
+  email <input type="text" name="user[email]" value="">
+  password <input type="text" name="user[password]" value="">
+  <input type="submit" value="login">
+</form>

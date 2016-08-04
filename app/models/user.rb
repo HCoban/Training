@@ -23,14 +23,13 @@ class User < ActiveRecord::Base
     self.password_digest = BCrypt::Password.create(password)
   end
 
-  def self.is_password?(password)
-    encry = BCrypt::Password.create(password)
-    BCrypt.Password.new(encry).is_password?(self.password_digest)
+  def is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
   def self.find_by_credentials(email, password)
-    user = User.find_by(email: email, password: password)
-    return nil if user.nil
-    user.valid? ? user : nil
+    user = User.find_by(email: email)
+    return nil if user.nil?
+    user.is_password?(password) ? user : nil
   end
 end
