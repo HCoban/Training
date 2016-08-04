@@ -1,0 +1,9 @@
+WELCOME TO BAND PAGE FOR
+<%= @band.name %>
+
+ALBUMS
+<ul>
+  <% @band.albums.each do |album| %>
+    <li> <%= album.title %> </li>
+  <% end %>
+</ul>

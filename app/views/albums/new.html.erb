@@ -1,0 +1,14 @@
+WELCOME TO ALBUM INSERT PAGE
+
+<form action="/albums" method="post">
+  <%= input_auth_token %>
+  TITLE <input type="text" name="album[title]" value="">
+  <select name="album[band_id]">
+    <% @bands.each do |band| %>
+      <option value=" <%= band.id %> " <%= "selected" if @album.band == band %> > <%= band.name %> </option>
+    <% end %>
+  </select>
+  <input type="radio" name="album[version]" value="s">Studio
+  <input type="radio" name="album[version]" value="l">Live
+  <input type="submit" value="Create!">
+</form>

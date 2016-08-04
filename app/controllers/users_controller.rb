@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       login_user!(@user)
       render :show
     else
-      flash.now[:errors] = []
+      flash.now[:errors] = @user.errors
       flash.now[:errors] << "Sign up failed! Try again!"
       render :new
     end
