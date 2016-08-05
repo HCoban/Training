@@ -11,6 +11,7 @@ class AlbumsController < ApplicationController
     if @album.save
       render :show
     else
+      fail
       flash.now[:errors] = [@album.errors.full_messages]
       flash.now[:errors] << ["Album couldn't be added"]
       @bands = Band.all
@@ -27,6 +28,6 @@ class AlbumsController < ApplicationController
   private
 
   def album_params
-    params.require(:album).permit(:title, :version)
+    params.require(:album).permit(:title, :version, :band_id)
   end
 end
