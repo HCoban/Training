@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RedditOnRails</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% [:success, :errors].each do |key| %>
+  <% if flash[key] %>
+  <div class="<%= key %>" id="flash">
+    <%= flash[key] %>
+  </div>
+  <% end %>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>
