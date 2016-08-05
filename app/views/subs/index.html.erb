@@ -1,0 +1,4 @@
+<% @subs.each do |sub| %>
+  <h4> <%= sub.title %> </h4>
+  <%= button_to "read", sub_url(sub.id), method: :get %>
+<% end %>

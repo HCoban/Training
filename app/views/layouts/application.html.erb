@@ -8,6 +8,15 @@
 </head>
 <body>
 
+<header>
+  <% if current_user %>
+    <%= button_to "logout", session_url, method: :delete %>
+  <% else %>
+    <%= button_to "login", new_session_url, method: :get %>
+  <% end %>
+</header>
+
+
 <% [:success, :errors].each do |key| %>
   <% if flash[key] %>
   <div class="<%= key %>" id="flash">

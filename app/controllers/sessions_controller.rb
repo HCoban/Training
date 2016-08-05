@@ -17,6 +17,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    logout
+    session[:session_token] = nil
+    current_user = nil
+    redirect_to new_session_url
+  end
+
   private
 
   def session_params

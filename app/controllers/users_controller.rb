@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "#{@user.username}: account created"
       login(@user)
-      render :show
+      redirect_to user_url(@user.id)
     else
       flash[:errors] = "User could not be created"
       render :new
@@ -22,7 +22,8 @@ class UsersController < ApplicationController
       if current_user.id == params[:id].to_i
         render :show
       else
-        redirect_to new_session_url
+        flash[:errors] = "You cannot view that page"
+        redirect_to user_url(@user.id)
       end
     else
       flash[:errors] = "Please log in"
@@ -31,18 +32,30 @@ class UsersController < ApplicationController
   end
 
   def edit
-    render :edit
+    @user = current_user
+    unless current_user.id == params[:id].to_i
+      redirect_to user_url(current_user.id)
+    else
+      render :edit
+    end
   end
 
   def update
     @user = current_user
-    @user.update_attributes(user_params)
-    if @user.save
-      flash[:success] = "#{@user.username}: account updated"
-      render :show
+    if BCrypt::Password.new(current_user.password_digest).is_password?(params[:user][:old_password])
+      @user.update_attributes(user_params)
+      if @user.valid?
+        @user.password= params[:user][:new_password]
+        @user.save
+        flash[:success] = "#{@user.username}: account updated"
+        render :show
+      else
+        flash[:errors] = "User could not be updated"
+        render :edit
+      end
     else
-      flash[:errors] = "User could not be updated"
-      render :edit
+      flash[:errors] = "Old password did not match account"
+      redirect_to edit_user_path
     end
   end
 

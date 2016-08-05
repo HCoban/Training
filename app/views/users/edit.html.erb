@@ -1,0 +1,11 @@
+<h2>Edit your account</h2>
+
+<form action="<%= user_path %>" method="post">
+  <%= insert_authenticity_token %>
+  <input type="hidden" name="_method" value="patch">
+  Old Password: <input type="text" name="user[old_password]">
+  New Password: <input type="text" name="user[new_password]">
+
+  New Username: <input type="text" name="user[username]" value="<%= @user.username %>">
+  <input type="submit" value="save">
+</form>
