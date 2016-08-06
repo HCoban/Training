@@ -60,7 +60,11 @@ class SubsController < ApplicationController
   end
 
   def edit
-    render :edit
+    if current_user && current_user.subs.exists?(id: params[:id])
+      render :edit
+    else
+      redirect_to subs_url
+    end
   end
 
   def update

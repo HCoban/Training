@@ -11,7 +11,7 @@
 </article>
 <h6>posted on: <%= @post.created_at.to_date %></h6>
 
-<%= button_to "back to #{@post.sub.title}", sub_url(@post.sub.id), method: :get %>
+<%= link_to "back to #{@post.sub.title}", sub_url(@post.sub.id), method: :get %>
 <% if current_user && current_user.id == @post.author_id %>
   <%= button_to "delete post", post_url, method: :delete %>
 <% end %>

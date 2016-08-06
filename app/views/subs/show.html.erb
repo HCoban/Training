@@ -9,8 +9,8 @@
   <br>
 <% end %>
 <br>
-<%= button_to "Back to Subs List", subs_url, method: :get %>
+<%= link_to "Back to Subs List", subs_url, method: :get %>
 <% if current_user && current_user.id == @sub.moderator_id %>
 <%= button_to "Destroy this Sub", sub_url(@sub.id), method: :delete %>
-<% end %>
 <%= button_to "Edit this Sub", edit_sub_path, method: :get %>
+<% end %>
