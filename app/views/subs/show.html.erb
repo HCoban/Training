@@ -4,8 +4,8 @@
   <%= @sub.description %>
 </p>
 <% @sub.posts.each do |post| %>
-  <%= button_to "#{post.title}", post_url(post.id), method: :get %>
-  <%= post.content[0, 20] %>
+  <%= link_to "#{post.title}", post_url(post.id), method: :get %>
+  <%= post.content[0, 20] %> <%= "..." if post.content.length > 20 %>
   <br>
 <% end %>
 <br>

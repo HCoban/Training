@@ -1,10 +1,9 @@
 <h2> <%= @user.username %> </h2>
 
-<p>
-  Welcome to your profile!
-</p>
+<h3>Welcome to your profile!</h3>
 
-<h3><%= button_to "Create a New Sub", new_sub_url, method: :get %></h3>
+<h4><%= link_to "Create a New Sub", new_sub_url, method: :get %></h4>
+<h4><%= link_to "subs", subs_url, method: :get %></h4>
 
-<%= button_to "edit your profile", edit_user_path(@user.id), method: :get %>
-<%= button_to "delete", user_path(@user.id), method: :delete, confirm: "Are you sure?" %>
+<%= link_to "edit profile", edit_user_path(@user.id), method: :get %>
+<%= link_to "delete profile", user_path(@user.id), method: :delete, confirm: "Are you sure?" %>

@@ -7,15 +7,16 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 200.times do
-  User.create(username: Faker::Pokemon.name, password: 'password')
+  User.create(username: Faker::Internet.user_name, password: Faker::Internet.password(10, 20))
 end
 
 66.times do
-  Sub.create(title: Faker::Name.title, description: Faker::Lorem.sentence(4),
-             moderator_id: rand(200) + 1)
+  Sub.create(title: Faker::Hacker.noun,
+  description: Faker::Hacker.adjective, moderator_id: User.all.sample.id)
 end
 
 rand(150).times do
-  Post.create(title: Faker::StarWars.character, content: Faker::StarWars.quote, sub_id: rand(1..66),
-              author_id: (User.ids).sample)
+  Post.create(title: Faker::Hacker.abbreviation,
+  content: Faker::Hacker.say_something_smart, sub_id: rand(1..66),
+  author_id: User.all.sample.id)
 end

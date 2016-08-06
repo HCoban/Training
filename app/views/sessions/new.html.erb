@@ -2,9 +2,9 @@
 
 <form action="<%= session_url %>" method="post">
   <%= insert_authenticity_token %>
-  Username<input type="text" name="session[username]" value="">
-  Password<input type="text" name="session[password]" value="">
+  username <input type="text" name="session[username]" value="">
+  password <input type="text" name="session[password]" value="">
   <input type="submit" value="Login">
 </form>
 
-<%= button_to "Dude, let me sign up!", new_user_path, method: :get %>
+<%= link_to "Dude, let me first sign up!", new_user_path, method: :get %>
