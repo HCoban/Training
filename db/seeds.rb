@@ -17,5 +17,5 @@ end
 
 rand(150).times do
   Post.create(title: Faker::StarWars.character, content: Faker::StarWars.quote, sub_id: rand(1..66),
-              author_id: rand(1..200))
+              author_id: (User.ids).sample)
 end

@@ -1,14 +1,16 @@
 <%= button_to "Back to Sub #{@post.sub.title}", sub_url(@post.sub.id), method: :get %>
 <h3><%= @post.title %></h3>
-<h4>By: <%= @post.author.username %> </h4>
+<h4>By: <%= @post.author_id %> </h4>
 <p>
+  <% if @post.url %>
   --<%= @post.url.downcase %>--
+  <% end %>
 </p>
 <article>
   <%= @post.content %>
 </article>
 <h6>Posted at: <%= @post.created_at.to_date %></h6>
 
-<% if current_user.id == @post.author_id %>
+<% if current_user && current_user.id == @post.author_id %>
   <%= button_to "Delete post", post_url, method: :delete %>
 <% end %>
