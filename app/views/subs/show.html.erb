@@ -3,7 +3,12 @@
 <p>
   <%= @sub.description %>
 </p>
-
+<% @sub.posts.each do |post| %>
+  <%= button_to "#{post.title}", post_url(post.id), method: :get %>
+  <%= post.content[0, 20] %>
+  <br>
+<% end %>
+<br>
 <%= button_to "Back to Subs List", subs_url, method: :get %>
 <% if current_user && current_user.id == @sub.moderator_id %>
 <%= button_to "Destroy this Sub", sub_url(@sub.id), method: :delete %>

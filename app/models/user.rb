@@ -24,6 +24,11 @@ class User < ActiveRecord::Base
     foreign_key: :moderator_id,
     class_name: :Sub
 
+  has_many :posts,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Post
+
   def reset_session_token!
     self.session_token = generate_session_token
     self.save!
