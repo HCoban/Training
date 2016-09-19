@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MusicApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<ul>
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+    <li>"<%= error%>"</li>
+    <% end %>
+  <% end %>
+</ul>
+
+
+<% if logged_in? %>
+  <%= button_to "sign-out", session_url, method: :delete%>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>
