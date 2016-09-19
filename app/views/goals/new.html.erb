@@ -1,0 +1,17 @@
+NEW GOAL OF <%= current_user.username %>
+
+<form action="<%= user_goals_url(current_user) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+  Name<input id="Name" type="text" name="goal[name]" value=" <%= @goal.name if @goal %>" >
+  Private<input type="radio" name="goal[gstatus]" value="private">
+  Public<input type="radio" name="goal[gstatus]" value="public">
+
+  <select name="goal[completed]">
+    <option value="true">true</option>
+    <option value="false">false</option>
+  </select>
+
+  <input type="submit"  value="Submit">
+
+</form>
