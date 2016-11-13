@@ -46,3 +46,4 @@ trial.union(5,0)
 trial.union(7, 2)
 trial.union(6, 1)
 trial.union(7, 3)
+trial.print

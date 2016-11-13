@@ -29,7 +29,6 @@ class QuickUnionW
   #O(logn)
   def union(p, q)
     return if connected?(p, q)
-    # debugger if p == 6 && q == 1
     if @sizes[root(p)] < @sizes[root(q)]
       @array[root(p)] = root(q)
     elsif @sizes[root(p)] == @sizes[root(q)]
