@@ -1,6 +1,6 @@
 module.exports = {
   context: __dirname,
-  entry: "./lib/hotel.js",
+  entry: "./lib/entry.jsx",
   output: {
     path: "./lib/",
     filename: "bundle.js"
@@ -12,7 +12,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015']
+          presets: ['es2015', 'react']
         }
       }
     ]
