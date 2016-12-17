@@ -1,5 +1,5 @@
+#find two indices add up to target in a sorted array
 def two_sum(array, target)
-  array.sort!
   i = 0
   j = (array.length) -1
 
