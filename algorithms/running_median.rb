@@ -1,4 +1,5 @@
 # Find the Running Median
+require 'byebug'
 
 n = gets.strip.to_i
 a = Array.new(n)
@@ -7,6 +8,9 @@ for a_i in (0..n-1)
 end
 
 class Heap
+
+    attr_reader :store
+
     def initialize(values)
         @store = []
         values.each { |v| insert(v) }
@@ -46,15 +50,15 @@ end
 class MinHeap < Heap
     def heapify_down!
         i = 0
-        while i <= parent_idx(@store.length - 1)
-            smallest = children_idx(i).min_by { |idx| @store[idx] }
-            break unless smallest
+        smallest = children_idx(i).min_by { |idx| @store[idx] }
+        while smallest
             if @store[i] > @store[smallest]
                 @store[i], @store[smallest] = @store[smallest], @store[i]
                 i = smallest
             else
                 break
             end
+            smallest = children_idx(i).min_by { |idx| @store[idx] }
         end
     end
 
@@ -77,15 +81,15 @@ end
 class MaxHeap < Heap
     def heapify_down!
         i = 0
-        while i <= parent_idx(@store.length - 1)
-            largest = children_idx(i).min_by { |idx| @store[idx] }
-            break unless largest
+        largest = children_idx(i).max_by { |idx| @store[idx] }
+        while largest
             if @store[i] < @store[largest]
                 @store[i], @store[largest] = @store[largest], @store[i]
                 i = largest
             else
                 break
             end
+            largest = children_idx(i).max_by { |idx| @store[idx] }
         end
     end
 
