@@ -1,10 +1,4 @@
-require './stack_min.rb'
-
-class Stack
-  def empty?
-    @store.empty?
-  end
-end
+require './stack.rb'
 
 class Queue
   def initialize
