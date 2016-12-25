@@ -21,4 +21,10 @@ class Queue
       @leave.push(@enter.pop)
     end
   end
+
+  def peek
+    return nil if @enter.empty? && @leave.empty?
+    slide if @leave.empty?
+    @leave.peek
+  end
 end
