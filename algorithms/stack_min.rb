@@ -11,16 +11,17 @@ class Stack
     if @mins.empty? || min > el
       @mins.push(el)
     end
+    
+    el
   end
 
   def pop
     raise "Error" if @store.empty?
-    to_pop = @store.pop
-    if to_pop = min
+    if @store.last == min
       @mins.pop
     end
 
-    to_pop
+    @store.pop
   end
 
   def min
